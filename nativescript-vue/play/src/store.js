@@ -91,6 +91,8 @@ export default new Vuex.Store({
           collection: "native_screen"
         };
         varia['token'] = global.appSettings.getString("token");
+        console.log(JSON.stringify(queryBody))
+
         global.axios.post(global.API.vuejx, {
           query: query,
           variables: JSON.stringify(varia)
@@ -101,13 +103,15 @@ export default new Vuex.Store({
           }
         })
           .then(async response => {
-            do {
-              global.Vue.component('vuejx_playground', eval("( " + response.data.data.results.hits.hits[0]['_source']['screenConfig'] + " )"))
-              await sleep(100)
-            } while (!('vuejx_playground' in components));
-            resolve('done')
+            console.log(response)
+            // do {
+            //   global.Vue.component('vuejx_playground', eval("( " + response.data.data.results.hits.hits[0]['_source']['screenConfig'] + " )"))
+            //   await sleep(100)
+            // } while (!('vuejx_playground' in components));
+            // resolve('done')
           })
           .catch(error => {
+            console.log(error)
             reject(error)
           })
       })
